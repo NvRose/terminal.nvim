@@ -52,6 +52,7 @@ M.new = function()
 	vim.wo.nu   = false
 	vim.wo.cul  = false
 	vim.wo.list = false
+	vim.wo.fdc  = "1"
 end
 
 M.close = function()
