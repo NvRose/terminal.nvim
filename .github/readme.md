@@ -4,7 +4,7 @@
 
 ```lua
 use {
-	"NvRose/terminal",
+	"NvRose/terminal.nvim",
  	config = function()
 		require("terminal").setup()
 	end
