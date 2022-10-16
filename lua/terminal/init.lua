@@ -71,6 +71,7 @@ local defaults = {
     keybinds = {
 	inside = {
 		["<c-\\>"] = M.close,
+		[":q"]     = M.close,
 	},
 	outside = {
 		["<c-\\>"] = M.new
