@@ -42,17 +42,12 @@ local set_keybinds = function(keybinds)
 end
 
 M.new = function()
-	if M.is_open then
-		return M.close()
-	end
-
 	if opts.orientation == "horizontal" then
 		vim.cmd('sp term://' .. opts.shell .. ' | res ' .. opts.resize)
 	elseif opts.orientation == "vertical" then
 		vim.cmd('vs term://' .. opts.shell .. ' | vert res ' .. opts.resize)
 	end
 
-	M.is_open   = true
 	vim.wo.rnu  = false
 	vim.wo.nu   = false
 	vim.wo.cul  = false
@@ -60,8 +55,7 @@ M.new = function()
 end
 
 M.close = function()
-	vim.cmd('bd! term://*')
-	M.is_open = false
+	vim.cmd 'q'
 end
 
 local defaults = {
@@ -71,7 +65,7 @@ local defaults = {
     keybinds = {
 	inside = {
 		["<c-\\>"] = M.close,
-		[":q"]     = M.close,
+		[":q"]     = M.close
 	},
 	outside = {
 		["<c-\\>"] = M.new
