@@ -2,27 +2,31 @@ local M = {}
 local opts = {}
 
 local set_behavior = function(behavior)
+	local group = vim.api.nvim_create_augroup("terminal", { clear = true })
 	if behavior.close_on_exit then
 		vim.api.nvim_create_autocmd("TermClose", {
 			callback = function()
 				vim.schedule_wrap(vim.api.nvim_input "<cr>")
-			end
+			end,
+			group = group
 		})
 	end
 
 	if behavior.auto_insert then
-		vim.api.nvim_create_autocmd("BufEnter", {
+		vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter" }, {
 			callback = function()
 				vim.cmd 'start'
 			end,
-			pattern = "term://*"
+			pattern = 'term://*',
+			group = group
 		})
 
 		vim.api.nvim_create_autocmd("BufLeave", {
 			callback = function()
 				vim.cmd 'stopi'
 			end,
-			pattern = "term://*"
+			pattern = 'term://*',
+			group = group
 		})
 	end
 end
@@ -66,7 +70,6 @@ local defaults = {
     keybinds = {
 	inside = {
 		["<c-\\>"] = M.close,
-		[":q"]     = M.close
 	},
 	outside = {
 		["<c-\\>"] = M.new
